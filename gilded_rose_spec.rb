@@ -1,6 +1,10 @@
 require 'rspec/given'
 require 'gilded_rose'
 
+RSpec.configure do |config|
+  config.expect_with(:rspec) { |c| c.syntax = :should }
+end
+
 describe "#update_quality" do
 
   context "with a single" do
@@ -162,7 +166,6 @@ describe "#update_quality" do
     end
 
     context "conjured item" do
-      before { pending }
       Given(:name) { "Conjured Mana Cake" }
 
       Invariant { item.sell_in.should == initial_sell_in-1 }
