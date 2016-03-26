@@ -7,7 +7,8 @@ end
 def update_item_quality(item)
   item.sell_in -= 1 if item.name != 'Sulfuras, Hand of Ragnaros'
 
-  if item.name == 'Conjured Mana Cake'
+  case item.name
+  when 'Conjured Mana Cake'
     if item.quality != 0
       if item.sell_in <= 0
         item.quality -= 4
@@ -15,47 +16,50 @@ def update_item_quality(item)
         item.quality -= 2
       end
     end
-  elsif item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-    if item.quality > 0
-      if item.name != 'Sulfuras, Hand of Ragnaros'
-        item.quality -= 1
-      end
-    end
   else
-    if item.quality < 50
-      item.quality += 1
-      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in < 10
-          if item.quality < 50
-            item.quality += 1
+    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
+      if item.quality > 0
+        if item.name != 'Sulfuras, Hand of Ragnaros'
+          item.quality -= 1
+        end
+      end
+    else
+      if item.quality < 50
+        item.quality += 1
+        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+          if item.sell_in < 10
+            if item.quality < 50
+              item.quality += 1
+            end
+          end
+          if item.sell_in < 5
+            if item.quality < 50
+              item.quality += 1
+            end
           end
         end
-        if item.sell_in < 5
-          if item.quality < 50
-            item.quality += 1
+      end
+    end
+
+    if item.sell_in < 0
+      if item.name != "Aged Brie"
+        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
+          if item.quality > 0
+            if item.name != 'Sulfuras, Hand of Ragnaros'
+              item.quality -= 1
+            end
           end
+        else
+          item.quality = item.quality - item.quality
+        end
+      else
+        if item.quality < 50
+          item.quality += 1
         end
       end
     end
   end
 
-  if item.sell_in < 0 && item.name != 'Conjured Mana Cake'
-    if item.name != "Aged Brie"
-      if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-        if item.quality > 0
-          if item.name != 'Sulfuras, Hand of Ragnaros'
-            item.quality -= 1
-          end
-        end
-      else
-        item.quality = item.quality - item.quality
-      end
-    else
-      if item.quality < 50
-        item.quality += 1
-      end
-    end
-  end
 end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
