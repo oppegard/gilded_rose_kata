@@ -9,13 +9,8 @@ def update_item_quality(item)
 
   case item.name
   when 'Conjured Mana Cake'
-    if item.quality != 0
-      if item.sell_in <= 0
-        item.quality -= 4
-      else
-        item.quality -= 2
-      end
-    end
+    item.sell_in < 0 ? item.quality -= 4 : item.quality -= 2
+    item.quality = [item.quality, 0].max
   when 'Aged Brie'
     item.sell_in < 0 ? item.quality += 2 : item.quality += 1
     item.quality = [item.quality, 50].min
