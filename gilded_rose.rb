@@ -16,8 +16,11 @@ def update_item_quality(item)
         item.quality -= 2
       end
     end
+  when 'Aged Brie'
+    item.sell_in < 0 ? item.quality += 2 : item.quality += 1
+    item.quality = [item.quality, 50].min
   else
-    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
+    if item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
           item.quality -= 1
@@ -42,20 +45,14 @@ def update_item_quality(item)
     end
 
     if item.sell_in < 0
-      if item.name != "Aged Brie"
-        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-          if item.quality > 0
-            if item.name != 'Sulfuras, Hand of Ragnaros'
-              item.quality -= 1
-            end
+      if item.name != 'Backstage passes to a TAFKAL80ETC concert'
+        if item.quality > 0
+          if item.name != 'Sulfuras, Hand of Ragnaros'
+            item.quality -= 1
           end
-        else
-          item.quality = item.quality - item.quality
         end
       else
-        if item.quality < 50
-          item.quality += 1
-        end
+        item.quality = item.quality - item.quality
       end
     end
   end
