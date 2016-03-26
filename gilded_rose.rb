@@ -26,14 +26,8 @@ def update_item_quality(item)
   when 'Sulfuras, Hand of Ragnaros'
     # do nothing
   else
-    if item.quality > 0
-      item.quality -= 1
-    end
-    if item.sell_in < 0
-      if item.quality > 0
-        item.quality -= 1
-      end
-    end
+    item.sell_in < 0 ? item.quality -= 2 : item.quality -= 1
+    item.quality = [item.quality, 0].max
   end
 end
 
