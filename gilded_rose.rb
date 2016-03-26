@@ -5,6 +5,8 @@ def update_quality(items)
 end
 
 def update_item_quality(item)
+  item.sell_in -= 1 if item.name != 'Sulfuras, Hand of Ragnaros'
+
   if item.name == 'Conjured Mana Cake'
     if item.quality != 0
       if item.sell_in <= 0
@@ -23,12 +25,12 @@ def update_item_quality(item)
     if item.quality < 50
       item.quality += 1
       if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in < 11
+        if item.sell_in < 10
           if item.quality < 50
             item.quality += 1
           end
         end
-        if item.sell_in < 6
+        if item.sell_in < 5
           if item.quality < 50
             item.quality += 1
           end
@@ -36,9 +38,7 @@ def update_item_quality(item)
       end
     end
   end
-  if item.name != 'Sulfuras, Hand of Ragnaros'
-    item.sell_in -= 1
-  end
+
   if item.sell_in < 0 && item.name != 'Conjured Mana Cake'
     if item.name != "Aged Brie"
       if item.name != 'Backstage passes to a TAFKAL80ETC concert'
