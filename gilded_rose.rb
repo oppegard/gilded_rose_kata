@@ -5,7 +5,8 @@ def update_quality(items)
 end
 
 def update_item_quality(item)
-  item.sell_in -= 1 if item.name != 'Sulfuras, Hand of Ragnaros'
+  return if item.name == 'Sulfuras, Hand of Ragnaros'
+  item.sell_in -= 1
 
   case item.name
   when 'Conjured Mana Cake'
@@ -23,8 +24,6 @@ def update_item_quality(item)
       item.quality += 1 if item.sell_in < 5
       item.quality = [item.quality, 50].min
     end
-  when 'Sulfuras, Hand of Ragnaros'
-    # do nothing
   else
     item.sell_in < 0 ? item.quality -= 2 : item.quality -= 1
     item.quality = [item.quality, 0].max
